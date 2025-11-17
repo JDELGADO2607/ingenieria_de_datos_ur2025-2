@@ -181,13 +181,26 @@ exports.completarTarea = async (req, res) => {
        message: 'Tarea no encontrada'
      });
    }
+   if (tarea.estado === 'pendiente' || tarea.estado === 'en progreso') {
+
    await tarea.completar();
-   res.status(200).json({
+
+   return res.status(200).json({
      success: true,
      message: 'Tarea completada',
      data: tarea
    });
- } catch (error) {
+  }
+
+   else 
+   return  res.status(400).json({
+      success: false,
+      message: "La tarea ya se encuentra completada"
+    });
+
+ } 
+ 
+ catch (error) {
    res.status(500).json({
      success: false,
      message: 'Error al completar la tarea',
@@ -207,12 +220,20 @@ exports.reabrirTarea = async (req, res) => {
        message: 'Tarea no encontrada'
      });
    }
+   if (tarea.estado === 'completada') {
    await tarea.reabrir();
-   res.status(200).json({
+   return res.status(200).json({
      success: true,
      message: 'Tarea reabierta',
      data: tarea
    });
+  }
+
+  else
+    return res.status(400).json({
+      success: false,
+      message: 'La tarea no puede ser reabierta porque no ha sido completada'
+    })
  } catch (error) {
    res.status(500).json({
      success: false,
