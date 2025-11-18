@@ -40,6 +40,40 @@ const tareaSchema = new mongoose.Schema({
     }
 });
 
+//PATCH
+
+tareaSchema.methods.completar = async function () {
+    this.estado = 'completada';
+    return this.save();
+};
+
+tareaSchema.methods.reabrir = async function () {
+    this.estado = 'pendiente';
+    return this.save();
+};
+
+tareaSchema.statics.obtenerEstadisticas = async function () {
+    const total = await this.countDocuments()
+    
+    const totalPorEstado = await this.aggregate([
+        {$group: {_id: "$estado", count: {$sum: 1}}}
+    ]);
+
+    const totalPorPrioridad = await this.aggregate([
+        {$group: {_id: "$prioridad", count: {$sum: 1}}}
+    ]);
+
+    const totalPorCategoria = await this.aggregate([
+        {$group: {_id: "$categoria", count: {$sum: 1}}}
+    ]);
+
+    return {total, totalPorEstado, totalPorCategoria, totalPorPrioridad};
+};
+
+
+tareaSchema.statics.obtenerPorPrioridad = async function (prioridad) {
+      return this.find({ prioridad: prioridad });
+};
 //accesos a datos repositories
 
 module.exports = mongoose.model('Tarea', tareaSchema);

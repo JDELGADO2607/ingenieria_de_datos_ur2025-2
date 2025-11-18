@@ -1,0 +1,52 @@
+node_modules/
+
+# Archivos de entorno
+.env
+.env.*  
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs
+*.log
+
+# Builds
+dist/
+build/
+coverage/
+.tmp/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+*.swp
+*.swo
+
+# TypeScript (solo si usas TS)
+*.tsbuildinfo
+
+# Cache
+.cache/
+.next/
+.nuxt/
+.idea/
+*.pid
+*.seed
+*.pid.lock
+
+# PM2 logs
+pids
+*.pid
+*.gz
+
+# Configuración de testing
+coverage/
+
+# Archivos temporales
+*.tmp
+*.temp

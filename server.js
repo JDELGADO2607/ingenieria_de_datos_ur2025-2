@@ -116,7 +116,7 @@ app.use((req, res) => {
 
 // Puerto y servidor
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000 || 3000;
 
 const server = app.listen(PORT, () => {
 
